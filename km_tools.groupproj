@@ -1,0 +1,108 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{31ABF810-FF59-45D7-A27F-2531EEFBB96D}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="km_pack.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="km_unpack.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="km_snx_decomp.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="km_snx_comp.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="km_snx_clean.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="km_enum_ops.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="km_find_dbs_ops.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="km_pack">
+			<MSBuild Projects="km_pack.dproj"/>
+		</Target>
+		<Target Name="km_pack:Clean">
+			<MSBuild Projects="km_pack.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_pack:Make">
+			<MSBuild Projects="km_pack.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="km_unpack">
+			<MSBuild Projects="km_unpack.dproj"/>
+		</Target>
+		<Target Name="km_unpack:Clean">
+			<MSBuild Projects="km_unpack.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_unpack:Make">
+			<MSBuild Projects="km_unpack.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="km_snx_decomp">
+			<MSBuild Projects="km_snx_decomp.dproj"/>
+		</Target>
+		<Target Name="km_snx_decomp:Clean">
+			<MSBuild Projects="km_snx_decomp.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_snx_decomp:Make">
+			<MSBuild Projects="km_snx_decomp.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="km_snx_comp">
+			<MSBuild Projects="km_snx_comp.dproj"/>
+		</Target>
+		<Target Name="km_snx_comp:Clean">
+			<MSBuild Projects="km_snx_comp.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_snx_comp:Make">
+			<MSBuild Projects="km_snx_comp.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="km_snx_clean">
+			<MSBuild Projects="km_snx_clean.dproj"/>
+		</Target>
+		<Target Name="km_snx_clean:Clean">
+			<MSBuild Projects="km_snx_clean.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_snx_clean:Make">
+			<MSBuild Projects="km_snx_clean.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="km_enum_ops">
+			<MSBuild Projects="km_enum_ops.dproj"/>
+		</Target>
+		<Target Name="km_enum_ops:Clean">
+			<MSBuild Projects="km_enum_ops.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_enum_ops:Make">
+			<MSBuild Projects="km_enum_ops.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="km_find_dbs_ops">
+			<MSBuild Projects="km_find_dbs_ops.dproj"/>
+		</Target>
+		<Target Name="km_find_dbs_ops:Clean">
+			<MSBuild Projects="km_find_dbs_ops.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="km_find_dbs_ops:Make">
+			<MSBuild Projects="km_find_dbs_ops.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="km_pack;km_unpack;km_snx_decomp;km_snx_comp;km_snx_clean;km_enum_ops;km_find_dbs_ops"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="km_pack:Clean;km_unpack:Clean;km_snx_decomp:Clean;km_snx_comp:Clean;km_snx_clean:Clean;km_enum_ops:Clean;km_find_dbs_ops:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="km_pack:Make;km_unpack:Make;km_snx_decomp:Make;km_snx_comp:Make;km_snx_clean:Make;km_enum_ops:Make;km_find_dbs_ops:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>

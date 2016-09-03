@@ -1,0 +1,82 @@
+1: SNX
+2: BMP
+3: PNG
+4: WAV
+5: OGG
+
+2 операнд — адрес на блок данных в секции данных
+
+08 [00, адрес данных] (?)
+09 [01, адрес данных] (?)
+0A [00/01, адрес данных] (?)
+0D [адрес данных, 00] (-)
+0F [адрес данных, 00-0D] (?)
+10 [адрес данных, 00-0D] (?)
+11 [00-02, адрес данных при 02]
+15 [адрес данных, 00] (-)
+
+#1 - выводить текст в основное окно
+#2#3 - пауза
+
+$00 (5 bytes) [$00 $XXXX $YYYY]
+$01 (5 bytes) [$01 $XXXX $YYYY]
+$04 (5 bytes) [$04 $XXXX $YYYY]
+$08 (5 bytes) [$08 $XXXX $YYYY]
+$09 (5 bytes) [$09 $XXXX $YYYY]
+$0C (5 bytes) [$0C $XXXX $YYYY]
+$10 (3 bytes) [$10 $XXXX]   ; Unconditional jump to address $XXXX
+$11 (var.len) [tricky, I'll try to explain it later] ; Conditional jump to address $ZZZZ
+$15 (var.len) [$15 stringz] ; This command puts text on the screen. 
+                            ; The string contains text in Shift-JIS with some control codes mixed in it (I guess)
+$16 (1 bytes) [$16]
+$17 (var.len) [$17 $XXXX stringz1, stringz2, ... stringzN $00] ; Display choice options (stringz1, stringz2, ...)
+                                                               ; and wait for user choice
+$18 (var.len) [$18 stringz] ; stringz is a script file name w/o the SNX extension (ex: 'DAY02')
+                            ; I guess this is a some kind of 'intermodular jump' command
+$19 (var.len) [$19 stringz] ; 'Intermodular call' command? stringz is a script file name without extension
+$1A (1 bytes) [$1A]         ; 'Return from intermodular call' command?
+$20 (var.len) [$20 stringz] ; stringz is a TGF file name w/o extension (ex: 'BO')
+$21 (var.len) [$21 stringz] ; stringz is a TGF file name w/o extension (ex: 'CGHA01')
+$24 (2 bytes) [$24 $XX]
+$25 (2 bytes) [$25 $XX]    ; Image 'fade in' effect?
+$28 (3 bytes) [$28 $XXXX]
+$2B (var.len) [$2B $XX stringz $YY] ; stringz is a WAV file name w/o extension (ex: 'mon_cd02')
+$2C (2 bytes) [$2C $XX]
+$2D (var.len) [$2D stringz $XX] ; stringz is a TGF file name w/o extension (ex: icondef)
+$2E (var.len) [$2E $XX stringz1 stringz2 stringz3 n*($00_or_this: {$XXXX $XXXX $XXXX $XXXX $YY})]
+; '$00_or_this' means that there would be either $00 indicating the command's end or that sequence
+; in braces. stringz1, stringz2 and stringz3 are TGF file names w/o extensions
+; (ex: t01, t02, t03)
+$2F (var.len) [$2F stringz $MMMM $NNNN $PPPP $QQQQ $RRRR $SSSS] ; stringz is a TGF file name 
+; w/o extension (ex: 'mes')
+$30 (2 bytes) [$30 $XX]
+$31 (2 bytes) [$31 $XX]
+$32 (2 bytes) [$32 $XX]
+$33 (2 bytes) [$33 $XX]
+$34 (2 bytes) [$34 $XX]
+$36 (3 bytes) [$36 $XXXX]
+$37 (7 bytes) [$37 $XX $XX $XX $XX $XX $XX]
+$38 (7 bytes) [$38 $XX $XX $XX $XX $XX $XX]
+$39 (2 bytes) [$39 $XX]
+$3A (9 bytes) [$3A $XXXX $XXXX $XXXX $XXXX]
+$3B (3 bytes) [$3B $XX $XX]
+$3C (3 bytes) [$3C $XX $XX]
+$3D (var.len) [$3D $XX stringz] ; stringz is a TGF file name w/o extension (ex: 'FG009')
+$3E (var.len) [$3E $XX $XX stringz] ; stringz is a TGF file name w/o extension and 
+; with CG_/CM_ prefix omitted (ex: 'timeplate')
+$3F (3 bytes) [$3F $XX $XX]
+$40 (var.len) [$40 stringz] ; stringz is... well, see the example: '10日目　午後　A棟'
+$41 (3 bytes) [$41 $XXXX]
+$42 (17 bytes) [$42 $XXXX $XXXX $XXXX $XXXX $XXXX $XXXX $XXXX $XXXX]
+$45 (1 bytes) [$45]
+$46 (1 bytes) [$46]
+$4D (9 bytes) [$4D $XXXX $XXXX $XXXX $XXXX]
+$4E (var.len) [$4E stringz $XX] ; Play AVI? stringz is AVI file name w/o extension (ex: 'op')
+$4F (1 bytes) ; Most probably 'Stop AVI' command
+$50 (var.len) [$50 stringz] ; stringz is a TGF file name w/o extension and 
+; with CG_/CM_ prefix omitted (ex: 'maru')
+$51 (2 bytes) [$51 $XX]
+$52 (5 bytes) [$52 $XXXX $XXXX]
+$56 (6 bytes) [$56 $XX $XXXX $XXXX]
+$57 (1 bytes) [$57]
+$FF (1 bytes) [$FF]
